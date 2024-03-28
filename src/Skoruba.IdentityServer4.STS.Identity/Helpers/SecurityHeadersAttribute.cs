@@ -4,6 +4,7 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
 // Modified by Jan Škoruba
 
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -19,13 +20,13 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
                 if (!context.HttpContext.Response.Headers.ContainsKey("X-Content-Type-Options"))
                 {
-                    context.HttpContext.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                    context.HttpContext.Response.Headers.TryAdd("X-Content-Type-Options", "nosniff");
                 }
 
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
                 if (!context.HttpContext.Response.Headers.ContainsKey("X-Frame-Options"))
                 {
-                    context.HttpContext.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                    context.HttpContext.Response.Headers.TryAdd("X-Frame-Options", "SAMEORIGIN");
                 }
 
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
@@ -38,19 +39,19 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                 // once for standards compliant browsers
                 if (!context.HttpContext.Response.Headers.ContainsKey("Content-Security-Policy"))
                 {
-                    context.HttpContext.Response.Headers.Add("Content-Security-Policy", csp);
+                    context.HttpContext.Response.Headers.TryAdd("Content-Security-Policy", csp);
                 }
                 // and once again for IE
                 if (!context.HttpContext.Response.Headers.ContainsKey("X-Content-Security-Policy"))
                 {
-                    context.HttpContext.Response.Headers.Add("X-Content-Security-Policy", csp);
+                    context.HttpContext.Response.Headers.TryAdd("X-Content-Security-Policy", csp);
                 }
 
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
-                var referrer_policy = "no-referrer";
+                const string referrerPolicy = "no-referrer";
                 if (!context.HttpContext.Response.Headers.ContainsKey("Referrer-Policy"))
                 {
-                    context.HttpContext.Response.Headers.Add("Referrer-Policy", referrer_policy);
+                    context.HttpContext.Response.Headers.TryAdd("Referrer-Policy", referrerPolicy);
                 }
             }
         }

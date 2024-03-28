@@ -66,12 +66,6 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 
                 builder.AddSigningCredential(certificate);
             }
-            else if (certificateConfiguration.UseSigningCertificateForAzureKeyVault)
-            {
-                var x509Certificate2Certs = AzureKeyVaultHelpers.GetCertificates(azureKeyVaultConfiguration).GetAwaiter().GetResult();
-
-                builder.AddSigningCredential(x509Certificate2Certs.ActiveCertificate);
-            }
             else if (certificateConfiguration.UseSigningCertificatePfxFile)
             {
                 if (string.IsNullOrWhiteSpace(certificateConfiguration.SigningCertificatePfxFilePath))
@@ -140,15 +134,6 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 
                 builder.AddValidationKey(certificate);
 
-            }
-            else if (certificateConfiguration.UseValidationCertificateForAzureKeyVault)
-            {
-                var x509Certificate2Certs = AzureKeyVaultHelpers.GetCertificates(azureKeyVaultConfiguration).GetAwaiter().GetResult();
-
-                if (x509Certificate2Certs.SecondaryCertificate != null)
-                {
-                    builder.AddValidationKey(x509Certificate2Certs.SecondaryCertificate);
-                }
             }
             else if (certificateConfiguration.UseValidationCertificatePfxFile)
             {

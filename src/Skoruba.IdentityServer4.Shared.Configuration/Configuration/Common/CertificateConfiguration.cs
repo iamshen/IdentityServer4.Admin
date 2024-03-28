@@ -27,8 +27,5 @@
 
         public string ValidationCertificatePfxFilePassword { get; set; }
 
-        public bool UseSigningCertificateForAzureKeyVault { get; set; }
-
-        public bool UseValidationCertificateForAzureKeyVault { get; set; }
     }
 }
